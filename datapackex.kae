@@ -1,0 +1,11 @@
+kaelang_example
+ 
+(attr LeetUnova generic.scale 0.75)
+(attr LeetUnova generic.max_health 16.0)
+(attr LeetUnova generic.movement_speed 0.075)
+  
+(var test {someData:"", another:8f})
+(var test.again (from test someData))
+(summon zombie)
+
+(print "Hello there")

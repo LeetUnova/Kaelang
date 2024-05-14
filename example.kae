@@ -1,0 +1,13 @@
+main
+
+(entity Jojo
+    (attr health 100.0)
+    (attr speed 9.0)
+    (attr size 10.0)
+)
+
+(proc main
+    (if (= $LeetUnova.health 10)
+        (print "oki dokie")
+    )
+)

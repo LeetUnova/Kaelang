@@ -1,0 +1,13 @@
+Main
+
+(proc main
+    (print "Hello world")
+    (var test true)
+    (set test false)
+    (if (== false (= test true))
+        (print 340)
+    )
+    (else (if (== true test)
+        (print "ok")
+    ))
+)
