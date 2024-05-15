@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         Kaelang kaelang = new Kaelang();
-        Lang javaLang = new JavaLang();
+        Lang other = new JavaLang();
         String text = "";
 
         try (Scanner scanner = new Scanner(new File("Main.kae"))) {
@@ -16,7 +16,6 @@ public class Main {
         }
 
         SyntaxNode tree = kaelang.createSyntaxTree(text);
-        // System.out.println(tree);
-        System.out.println(javaLang.fromSyntaxTree(tree));
+        System.out.println(other.fromSyntaxTree(tree));
     }
 }
