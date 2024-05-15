@@ -29,7 +29,7 @@ public class JavaLang implements Lang {
             }
             case "print" -> String.format("%sSystem.out.print(%s);", indent, fromTreeMinor(node.children.get(0), ""));
             case "proc" -> {
-                String text = String.format("%s%s %s(%s) {\n", indent, node.children.get(0).value, node.children.get(1).value, node.children.get(2).value);
+                String text = String.format("%s%s %s(%s) {\n", indent, node.children.get(0).value, node.children.get(1).value, fromTreeMinor(node.children.get(2), ""));
 
                 for (int i = 3; i < node.children.size(); i++)
                     text += fromTreeMinor(node.children.get(i), indent + "    ") + "\n";
@@ -61,7 +61,7 @@ public class JavaLang implements Lang {
                 yield text + indent + "}\n";
             }
             case "==" -> String.format("%s == %s", fromTreeMinor(node.children.get(0), ""), fromTreeMinor(node.children.get(1), ""));
-            case "var" -> String.format("%svar %s = %n%s;", indent, node.children.get(0).value, fromTreeMinor(node.children.get(1), indent));
+            case "var" -> String.format("%svar %s = %s;", indent, node.children.get(0).value, fromTreeMinor(node.children.get(1), indent).trim());
             case "=" -> String.format("(%s = %s)", node.children.get(0).value, node.children.get(1).value);
             case "set" -> String.format("%s%s = %s;", indent, node.children.get(0).value, node.children.get(1).value);
             case "else" -> String.format("%selse {\n%s\n%s}", indent, fromTreeMinor(node.children.get(0), indent + "    "), indent);
@@ -101,7 +101,11 @@ public class JavaLang implements Lang {
 
                 yield text;
             }
-            default -> indent + node.value;
+            default -> {
+                if (!node.value.contains("\""))
+                    yield node.value.replace(";", ", ").replace("-", " ");
+                yield indent + node.value;
+            }
         };
     }
 }
