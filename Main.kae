@@ -1,6 +1,6 @@
 Main
 
-(proc main
+(proc void main (String[]-args)
     (print "Hello world")
     (var test true)
     (set test false)
@@ -16,4 +16,21 @@ Main
     )
     (switch test (case false (print "hello")))
     (var hi (switch test (case false (yield 93)) (default (yield 123))))
+)
+
+(prot int test (int-v)
+    (print "jojo")
+    (return (+ v 3))
+)
+
+(priv Point another ()
+    (return (new Point (args 2 5)))
+)
+
+(pub Point test2 ()
+    (return (new Point (args (+ 4 1) 5)))
+)
+
+(priv bool test3 ()
+    (return true)
 )

@@ -35,18 +35,20 @@ public class Kaelang implements Lang {
                     boolean inQuote = false;
                     int inCurly = 0;
                     while (i < text.length() && (!Character.isWhitespace(text.charAt(i)) || inQuote || inCurly != 0)) {
-                        if (text.charAt(i) == '"')
-                            inQuote = !inQuote;
-                        if (text.charAt(i) == '{')
-                            inCurly++;
-                        if (text.charAt(i) == '}')
-                            inCurly--;
+                        switch (text.charAt(i)) {
+                            case '"' -> inQuote = !inQuote;
+                            case '{' -> inCurly++;
+                            case '}' -> inCurly--;
+                        }
                         term += text.charAt(i++);
                     }
                     list.add(term);
                 }
             }
         }
+
+        if (list.size() <= 0)
+            return new SyntaxNode("");
 
         SyntaxNode node = new SyntaxNode(list.get(0));
 

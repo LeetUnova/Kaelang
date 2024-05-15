@@ -29,12 +29,36 @@ public class JavaLang implements Lang {
             }
             case "print" -> String.format("%sSystem.out.print(%s);", indent, fromTreeMinor(node.children.get(0), ""));
             case "proc" -> {
-                String text = String.format("%spublic void %s() {\n", indent, node.children.get(0).value);
+                String text = String.format("%s%s %s(%s) {\n", indent, node.children.get(0).value, node.children.get(1).value, node.children.get(2).value);
 
-                for (int i = 1; i < node.children.size(); i++)
+                for (int i = 3; i < node.children.size(); i++)
                     text += fromTreeMinor(node.children.get(i), indent + "    ") + "\n";
 
-                yield text + indent + "}";
+                yield text + indent + "}\n";
+            }
+            case "pub" -> {
+                String text = String.format("%spublic %s %s(%s) {\n", indent, node.children.get(0).value, node.children.get(1).value, node.children.get(2).value);
+
+                for (int i = 3; i < node.children.size(); i++)
+                    text += fromTreeMinor(node.children.get(i), indent + "    ") + "\n";
+
+                yield text + indent + "}\n";
+            }
+            case "priv" -> {
+                String text = String.format("%sprivate %s %s(%s) {\n", indent, node.children.get(0).value, node.children.get(1).value, node.children.get(2).value);
+
+                for (int i = 3; i < node.children.size(); i++)
+                    text += fromTreeMinor(node.children.get(i), indent + "    ") + "\n";
+
+                yield text + indent + "}\n";
+            }
+            case "prot" -> {
+                String text = String.format("%sprotected %s %s(%s) {\n", indent, node.children.get(0).value, node.children.get(1).value, node.children.get(2).value);
+
+                for (int i = 3; i < node.children.size(); i++)
+                    text += fromTreeMinor(node.children.get(i), indent + "    ") + "\n";
+
+                yield text + indent + "}\n";
             }
             case "==" -> String.format("%s == %s", fromTreeMinor(node.children.get(0), ""), fromTreeMinor(node.children.get(1), ""));
             case "var" -> String.format("%svar %s = %n%s;", indent, node.children.get(0).value, fromTreeMinor(node.children.get(1), indent));
@@ -60,7 +84,23 @@ public class JavaLang implements Lang {
             }
             case "yield" -> String.format("%syield %s;", indent, fromTreeMinor(node.children.get(0), ""));
             case "return" -> String.format("%sreturn %s;", indent, fromTreeMinor(node.children.get(0), ""));
-            case "default" -> String.format("%sdefault:\n%s\n%s", indent, fromTreeMinor(node.children.get(0), indent + "    "), indent);
+            case "default" -> String.format("%sdefault:\n%s\n%s    break;", indent, fromTreeMinor(node.children.get(0), indent + "    "), indent);
+            case "+" -> String.format("(%s + %s)", node.children.get(0).value, node.children.get(1).value);
+            case "-" -> String.format("(%s - %s)", node.children.get(0).value, node.children.get(1).value);
+            case "*" -> String.format("(%s * %s)", node.children.get(0).value, node.children.get(1).value);
+            case "/" -> String.format("(%s / %s)", node.children.get(0).value, node.children.get(1).value);
+            case "new" -> String.format("new %s(%s)", node.children.get(0).value, fromTreeMinor(node.children.get(1), ""));
+            case "args" -> {
+                if (node.children.size() == 1)
+                    yield fromTreeMinor(node.children.get(0), "");
+
+                String text = fromTreeMinor(node.children.get(0), "");
+
+                for (int i = 1; i < node.children.size(); i++)
+                    text += ", " + fromTreeMinor(node.children.get(i), "");
+
+                yield text;
+            }
             default -> indent + node.value;
         };
     }
