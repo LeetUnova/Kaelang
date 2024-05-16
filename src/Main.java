@@ -14,6 +14,7 @@ public class Main {
             case "jv" -> new JavaLang();
             case "js" -> new JavaScriptLang();
             case "mc" -> new DataPackLang();
+            case "py" -> new PythonLang();
             default -> throw new IllegalArgumentException("Unknown language");
         };
 
@@ -34,6 +35,7 @@ public class Main {
             case "jv" -> ".java";
             case "js" -> ".js";
             case "mc" -> ".mcfunction";
+            case "py" -> ".py";
             default -> throw new IllegalArgumentException("Unknown language");
         }), code);
     }
