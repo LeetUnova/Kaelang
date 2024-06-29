@@ -1,5 +1,7 @@
 Main
 
+(import java.awt.Point)
+
 (proc void main (args String[]-args)
     (print "Hello world")
     (var test true)

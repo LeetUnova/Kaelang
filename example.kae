@@ -6,7 +6,7 @@ main
     (attr size 10.0)
 )
 
-(proc main
+(proc void main
     (if (= $LeetUnova.health 10)
         (print "oki dokie")
     )

@@ -1,0 +1,7 @@
+main
+
+(class Test
+    (proc dosomething
+        (print a)
+    )
+)

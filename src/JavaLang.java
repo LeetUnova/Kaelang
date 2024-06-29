@@ -101,6 +101,10 @@ public class JavaLang implements Lang {
 
                 yield text;
             }
+            case "import" -> {
+                String text = String.format("%simport %s;", indent, node.children.get(0).value);
+                yield text;
+            }
             default -> {
                 if (!node.value.contains("\""))
                     yield node.value.replace(";", ", ").replace("-", " ");
